@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Example deck — The Rate Read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&amp;family=DM+Mono:wght@300;400&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E2A2E;--surface:#133337;--text:#F4F1ED;
+--muted:#7E9A9B;--accent:#DBC9B8;--line:#1C4449;
+--display:'Inter', system-ui, sans-serif;--body:'Inter', system-ui, sans-serif;--mono:'DM Mono', ui-monospace, monospace;}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000;overflow:hidden;font-family:var(--body);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#stage{position:fixed;inset:0;display:grid;place-items:center;background:#000}
+#deck{width:1600px;height:900px;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;background:var(--bg);color:var(--text);
+  opacity:0;pointer-events:none;transition:opacity .2s ease;overflow:hidden}
+.slide.on{opacity:1;pointer-events:auto}
+.pad{position:absolute;inset:96px;display:flex;flex-direction:column;justify-content:center}
+.pad.center{align-items:center;text-align:center}
+.pad.right{align-items:flex-end;text-align:right}
+.pad>*{max-width:1200px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:40px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.04em;line-height:.98}
+.t-cover{font-size:132px;letter-spacing:-.045em}
+.t-section{font-size:104px}
+.t-stmt{font-size:76px;letter-spacing:-.035em;line-height:1.04}
+.t-key{font-size:184px;letter-spacing:-.05em;line-height:.9}
+.t-q{font-size:88px;letter-spacing:-.035em;line-height:1.05;font-weight:300}
+.t-mid{font-size:56px;letter-spacing:-.03em}
+.t-small{font-size:36px;letter-spacing:-.02em;margin-bottom:56px;font-weight:700}
+.t-num{font-family:var(--display);font-weight:700;font-size:248px;letter-spacing:-.055em;line-height:.85}
+.t-price{font-family:var(--display);font-weight:700;font-size:176px;letter-spacing:-.05em;line-height:.9}
+.t-quote{font-family:var(--display);font-weight:300;font-size:56px;line-height:1.25;letter-spacing:-.02em;max-width:1120px}
+.ac{color:var(--accent)}
+.dim{color:var(--muted)}
+.sub{font-size:29px;font-weight:300;color:var(--muted);margin-top:36px;line-height:1.45;max-width:880px}
+.presenter{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-top:72px}
+.numlabel{font-size:27px;font-weight:300;color:var(--text);margin-top:40px;max-width:820px;line-height:1.4}
+.src{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:28px}
+.attrib{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:48px}
+.sect{background:var(--surface)}
+.center-t{text-align:center}
+.cols{display:flex;gap:0;align-items:stretch;width:100%}
+.col{flex:1;padding-right:64px}
+.cols .col:last-child{padding-right:0;padding-left:64px}
+.vr{width:1px;background:var(--line)}
+.collabel{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:40px}
+.col ul{list-style:none}
+.col li{font-size:36px;font-weight:300;line-height:1.3;margin-bottom:32px;letter-spacing:-.01em}
+.biglist{list-style:none}
+.biglist li{font-size:44px;font-weight:300;line-height:1.25;margin-bottom:40px;letter-spacing:-.015em}
+.buildlist{list-style:none;width:100%}
+.buildlist li{font-size:34px;font-weight:300;line-height:1.3;margin-bottom:26px;display:flex;
+  gap:32px;align-items:baseline;transition:color .2s ease,opacity .2s ease}
+.buildlist li.pending{opacity:0}
+.buildlist li.done{color:var(--muted)}
+.buildlist li.live{color:var(--text)}
+.bn{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--muted);min-width:36px}
+.buildlist li.live .bn{color:var(--accent)}
+.proofwrap{display:flex;gap:80px;align-items:center}
+.ptable{flex:1}
+.prow{display:flex;gap:40px;padding:28px 0;border-top:1px solid var(--line);align-items:baseline}
+.prow:last-child{border-bottom:1px solid var(--line)}
+.plabel{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);min-width:220px}
+.pval{font-size:34px;font-weight:300;line-height:1.3;letter-spacing:-.01em}
+.pimg img{max-width:420px;max-height:560px;border-radius:6px;display:block}
+.diagram{width:100%;display:flex;justify-content:center}
+.flow{display:flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:center}
+.node{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:28px 34px;
+  font-size:24px;font-weight:300;letter-spacing:-.01em;max-width:280px;line-height:1.3}
+.arrow{color:var(--muted);font-size:30px}
+.stack{width:100%;max-width:1100px}
+.srow{display:flex;justify-content:space-between;gap:48px;padding:22px 0;
+  border-bottom:1px solid var(--line);align-items:baseline}
+.sitem{font-size:28px;font-weight:300;letter-spacing:-.01em}
+.sval{font-family:var(--mono);font-size:19px;color:var(--muted);white-space:nowrap}
+.srow.total{border-bottom:none;border-top:1px solid var(--accent);margin-top:12px;padding-top:26px}
+.srow.total .sitem{font-weight:700;font-size:30px}
+.srow.total .sval{color:var(--accent);font-size:26px}
+.stackprice{font-family:var(--display);font-weight:700;font-size:92px;letter-spacing:-.045em;margin-top:48px}
+.ctabtn{margin-top:56px;display:inline-block;background:var(--accent);color:var(--bg);
+  font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.02em;padding:22px 52px;border-radius:5px}
+.url{font-family:var(--mono);font-size:17px;letter-spacing:.06em;color:var(--muted);margin-top:34px}
+.closing{background:var(--surface)}
+.imgslide{position:absolute;inset:0}
+.imgslide img{width:100%;height:100%;object-fit:cover}
+.caption{position:absolute;left:96px;bottom:96px;right:96px;font-size:30px;font-weight:300;
+  text-shadow:0 2px 24px rgba(0,0,0,.85);line-height:1.35}
+#hud{position:absolute;right:40px;bottom:32px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);opacity:.5;z-index:40;
+  display:flex;gap:22px;pointer-events:none}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;background:#0a0a0a;
+  border-top:1px solid #222;padding:26px 36px;color:#ddd;font-size:16px;line-height:1.6;
+  display:none;z-index:60;font-family:var(--body)}
+#notes.on{display:block}
+#notes .nlabel{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:#666;margin-bottom:12px}
+#notes .nnext{margin-top:20px;padding-top:16px;border-top:1px solid #1d1d1d;color:#777;font-size:14px}
+#grid{position:fixed;inset:0;background:#070707;overflow:auto;padding:40px;display:none;z-index:70}
+#grid.on{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;align-content:start}
+.gcell{aspect-ratio:16/9;background:var(--bg);border:1px solid #1c1c1c;border-radius:4px;
+  padding:14px;overflow:hidden;cursor:pointer;position:relative}
+.gcell:hover{border-color:var(--accent)}
+.gcell .gt{font-family:var(--display);font-weight:700;font-size:13px;line-height:1.2;color:var(--text);
+  letter-spacing:-.02em;max-height:72px;overflow:hidden}
+.gcell .gk{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px}
+.gcell .gn{position:absolute;right:10px;bottom:8px;font-family:var(--mono);font-size:9px;color:#444}
+.gcell.cur{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+@media print{
+  html,body{overflow:visible;background:#fff;height:auto}
+  #stage{position:static;display:block}
+  #deck{width:auto;height:auto;transform:none!important}
+  .slide{position:relative;opacity:1!important;pointer-events:auto;width:1600px;height:900px;
+    page-break-after:always;break-after:page;display:block}
+  #hud,#notes,#grid{display:none!important}
+  @page{size:1600px 900px;margin:0}
+}
+
+</style></head><body>
+<div id="stage"><div id="deck"><section class="slide" id="s0" data-type="cover"><div class="pad center">
+      <div class="kicker">Live · 60 minutes</div>
+      <h1 class="t-cover">The <span class="ac">Rate</span> Read</h1>
+      <p class="sub">Find the leak in ten minutes. Stop guessing which of sixteen.</p>
+      <p class="presenter">Zayd Operates</p>
+    </div></section><section class="slide" id="s1" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">By the end you will know where your money <span class="ac">leaks</span>.</h2>
+      <p class="sub">Not a theory. Your own numbers, read in an afternoon.</p>
+    </div></section><section class="slide" id="s2" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">Three things, then I let you go.</h2>
+      
+    </div></section><section class="slide" id="s3" data-type="build"><div class="pad">
+      
+      <h3 class="t-small">What you leave with</h3>
+      <ul class="buildlist"><li class="live"><span class="bn">01</span>The eight numbers that actually run your business.</li><li class="pending"><span class="bn">02</span>Which one of sixteen leaks yours has.</li><li class="pending"><span class="bn">03</span>What to change on Monday, and what to leave alone.</li></ul>
+    </div></section><section class="slide" id="s4" data-type="build"><div class="pad">
+      
+      <h3 class="t-small">What you leave with</h3>
+      <ul class="buildlist"><li class="done"><span class="bn">01</span>The eight numbers that actually run your business.</li><li class="live"><span class="bn">02</span>Which one of sixteen leaks yours has.</li><li class="pending"><span class="bn">03</span>What to change on Monday, and what to leave alone.</li></ul>
+    </div></section><section class="slide" id="s5" data-type="build"><div class="pad">
+      
+      <h3 class="t-small">What you leave with</h3>
+      <ul class="buildlist"><li class="done"><span class="bn">01</span>The eight numbers that actually run your business.</li><li class="done"><span class="bn">02</span>Which one of sixteen leaks yours has.</li><li class="live"><span class="bn">03</span>What to change on Monday, and what to leave alone.</li></ul>
+    </div></section><section class="slide" id="s6" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">Open a doc. Write one number down.</h2>
+      
+    </div></section><section class="slide" id="s7" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">How many people booked with you last month?</h2>
+      <p class="sub">Not leads. Booked.</p>
+    </div></section><section class="slide" id="s8" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">Now: how many <span class="ac">showed up</span>?</h2>
+      
+    </div></section><section class="slide" id="s9" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">At the end I will show you the sixteen.</h2>
+      <p class="sub">The whole list. You get it either way.</p>
+    </div></section><section class="slide" id="s10" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">This is for coaches already past <span class="ac">twenty</span> thousand a month.</h2>
+      
+    </div></section><section class="slide" id="s11" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">If you are under, this will not help you yet.</h2>
+      <p class="sub">I would rather you left now.</p>
+    </div></section><section class="slide" id="s12" data-type="section"><div class="pad center sect">
+      <div class="kicker">Act one</div>
+      <h2 class="t-section">Let me describe your month.</h2>
+      
+    </div></section><section class="slide" id="s13" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">It is the twenty-eighth.</h2>
+      
+    </div></section><section class="slide" id="s14" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">You open the dashboard at eleven at night.</h2>
+      
+    </div></section><section class="slide" id="s15" data-type="number"><div class="pad center">
+      
+      <div class="t-num">240</div>
+      <p class="numlabel">leads that month</p>
+      
+    </div></section><section class="slide" id="s16" data-type="number"><div class="pad center">
+      
+      <div class="t-num">11</div>
+      <p class="numlabel">calls booked</p>
+      
+    </div></section><section class="slide" id="s17" data-type="number"><div class="pad center">
+      
+      <div class="t-num">2</div>
+      <p class="numlabel">closed</p>
+      
+    </div></section><section class="slide" id="s18" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">You close the tab.</h2>
+      
+    </div></section><section class="slide" id="s19" data-type="quote"><div class="pad center">
+      
+      <blockquote class="t-quote">It must be the offer.</blockquote>
+      <p class="attrib">you, on the twenty-eighth</p>
+    </div></section><section class="slide" id="s20" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">So next month you change the offer.</h2>
+      
+    </div></section><section class="slide" id="s21" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">Then the content.</h2>
+      
+    </div></section><section class="slide" id="s22" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">Then the price.</h2>
+      
+    </div></section><section class="slide" id="s23" data-type="statement"><div class="pad left">
+      
+      <h2 class="t-stmt">Then the ad.</h2>
+      
+    </div></section>
+<div id="hud"><span id="hud-a"></span><span id="hud-n"></span></div>
+</div></div>
+<div id="notes"><div class="nlabel">Speaker notes &nbsp;·&nbsp; press S to hide</div>
+<div id="nbody"></div><div class="nnext" id="nnext"></div></div>
+<div id="grid"><div class="gcell" id="g0" data-i="0"><div class="gk">00 · The frame</div><div class="gt">The Rate Read</div><div class="gn">1</div></div><div class="gcell" id="g1" data-i="1"><div class="gk">00 · The frame</div><div class="gt">By the end you will know where your money leaks.</div><div class="gn">2</div></div><div class="gcell" id="g2" data-i="2"><div class="gk">00 · The frame</div><div class="gt">Three things, then I let you go.</div><div class="gn">3</div></div><div class="gcell" id="g3" data-i="3"><div class="gk">00 · The frame</div><div class="gt">What you leave with</div><div class="gn">4</div></div><div class="gcell" id="g4" data-i="4"><div class="gk">00 · The frame</div><div class="gt">What you leave with</div><div class="gn">5</div></div><div class="gcell" id="g5" data-i="5"><div class="gk">00 · The frame</div><div class="gt">What you leave with</div><div class="gn">6</div></div><div class="gcell" id="g6" data-i="6"><div class="gk">00 · The frame</div><div class="gt">Open a doc. Write one number down.</div><div class="gn">7</div></div><div class="gcell" id="g7" data-i="7"><div class="gk">00 · The frame</div><div class="gt">How many people booked with you last month?</div><div class="gn">8</div></div><div class="gcell" id="g8" data-i="8"><div class="gk">00 · The frame</div><div class="gt">Now: how many showed up?</div><div class="gn">9</div></div><div class="gcell" id="g9" data-i="9"><div class="gk">00 · The frame</div><div class="gt">At the end I will show you the sixteen.</div><div class="gn">10</div></div><div class="gcell" id="g10" data-i="10"><div class="gk">00 · The frame</div><div class="gt">This is for coaches already past twenty thousand a month.</div><div class="gn">11</div></div><div class="gcell" id="g11" data-i="11"><div class="gk">00 · The frame</div><div class="gt">If you are under, this will not help you yet.</div><div class="gn">12</div></div><div class="gcell" id="g12" data-i="12"><div class="gk">01 · The pain</div><div class="gt">Let me describe your month.</div><div class="gn">13</div></div><div class="gcell" id="g13" data-i="13"><div class="gk">01 · The pain</div><div class="gt">It is the twenty-eighth.</div><div class="gn">14</div></div><div class="gcell" id="g14" data-i="14"><div class="gk">01 · The pain</div><div class="gt">You open the dashboard at eleven at night.</div><div class="gn">15</div></div><div class="gcell" id="g15" data-i="15"><div class="gk">01 · The pain</div><div class="gt">240</div><div class="gn">16</div></div><div class="gcell" id="g16" data-i="16"><div class="gk">01 · The pain</div><div class="gt">11</div><div class="gn">17</div></div><div class="gcell" id="g17" data-i="17"><div class="gk">01 · The pain</div><div class="gt">2</div><div class="gn">18</div></div><div class="gcell" id="g18" data-i="18"><div class="gk">01 · The pain</div><div class="gt">You close the tab.</div><div class="gn">19</div></div><div class="gcell" id="g19" data-i="19"><div class="gk">01 · The pain</div><div class="gt">It must be the offer.</div><div class="gn">20</div></div><div class="gcell" id="g20" data-i="20"><div class="gk">01 · The pain</div><div class="gt">So next month you change the offer.</div><div class="gn">21</div></div><div class="gcell" id="g21" data-i="21"><div class="gk">01 · The pain</div><div class="gt">Then the content.</div><div class="gn">22</div></div><div class="gcell" id="g22" data-i="22"><div class="gk">01 · The pain</div><div class="gt">Then the price.</div><div class="gn">23</div></div><div class="gcell" id="g23" data-i="23"><div class="gk">01 · The pain</div><div class="gt">Then the ad.</div><div class="gn">24</div></div></div>
+<script>var SLIDES=[{"act": "00 \u00b7 The frame", "note": "Hold ten seconds while people land. Do not say welcome. Do not do housekeeping. First words out of your mouth are the promise on the next slide.", "label": "The Rate Read", "cell": "The Rate Read"}, {"act": "00 \u00b7 The frame", "note": "Say it plainly and immediately. &#x27;I am not going to teach you marketing. By the end of this hour you will know which single part of your business is losing you the most money, and you will know it from your own numbers, not from my opinion.&#x27;", "label": "By the end you will know where your money leaks.", "cell": "By the end you will know where your money leaks."}, {"act": "00 \u00b7 The frame", "note": "Frame the hour so they can feel its shape. Short.", "label": "Three things, then I let you go.", "cell": "Three things, then I let you go."}, {"act": "00 \u00b7 The frame", "note": "Read all three out. Do not elaborate yet.", "label": "What you leave with", "cell": "What you leave with"}, {"act": "00 \u00b7 The frame", "note": "Second.", "label": "What you leave with", "cell": "What you leave with"}, {"act": "00 \u00b7 The frame", "note": "Third. Then: &#x27;That last one is the one nobody tells you.&#x27;", "label": "What you leave with", "cell": "What you leave with"}, {"act": "00 \u00b7 The frame", "note": "Value before credentials. Make them DO something in the first three minutes. This is why they stay past minute two.", "label": "Open a doc. Write one number down.", "cell": "Open a doc. Write one number down."}, {"act": "00 \u00b7 The frame", "note": "Ask it, then wait. &#x27;Not leads. Not calls you wanted. Booked. Write the number down.&#x27; Check the chat, read two out loud.", "label": "How many people booked with you last month?", "cell": "How many people booked with you last month?"}, {"act": "00 \u00b7 The frame", "note": "Hold. &#x27;Most of you just found a gap you have never measured. Keep both numbers. We come back to them at minute forty.&#x27; This is the loop opener.", "label": "Now: how many showed up?", "cell": "Now: how many showed up?"}, {"act": "00 \u00b7 The frame", "note": "Name the loop, do not describe it. &#x27;I have never put this list on the internet. It is the whole audit. You get it at the end whether you buy anything or not.&#x27;", "label": "At the end I will show you the sixteen.", "cell": "At the end I will show you the sixteen."}, {"act": "00 \u00b7 The frame", "note": "Minute five. The self-selection slide. Say the exclusion out loud and mean it.", "label": "This is for coaches already past twenty thousand a month.", "cell": "This is for coaches already past twenty thousand a month."}, {"act": "00 \u00b7 The frame", "note": "&#x27;Genuinely. Leave. You do not have a leak, you have a volume problem, and that is a different hour. I would rather you left now than sat through fifty minutes that were not built for you.&#x27; Then pause. Nobody leaves. Everybody stays harder.", "label": "If you are under, this will not help you yet.", "cell": "If you are under, this will not help you yet."}, {"act": "01 \u00b7 The pain", "note": "Hard reset. Say the title, pause two seconds, move on. Do not elaborate on a section slide.", "label": "Let me describe your month.", "cell": "Let me describe your month."}, {"act": "01 \u00b7 The pain", "note": "Drop the pace. Quiet voice. You are describing their life in the third person and they are going to feel watched.", "label": "It is the twenty-eighth.", "cell": "It is the twenty-eighth."}, {"act": "01 \u00b7 The pain", "note": "Concrete. Specific time. No adjectives.", "label": "You open the dashboard at eleven at night.", "cell": "You open the dashboard at eleven at night."}, {"act": "01 \u00b7 The pain", "note": "Say the number, not the feeling.", "label": "240", "cell": "240"}, {"act": "01 \u00b7 The pain", "note": "Advance fast. The two numbers do the arguing.", "label": "11", "cell": "11"}, {"act": "01 \u00b7 The pain", "note": "Hold. Say nothing.", "label": "2", "cell": "2"}, {"act": "01 \u00b7 The pain", "note": "Beat. Let it sit.", "label": "You close the tab.", "cell": "You close the tab."}, {"act": "01 \u00b7 The pain", "note": "This is the moment of recognition. Slow down.", "label": "It must be the offer.", "cell": "It must be the offer."}, {"act": "01 \u00b7 The pain", "note": "&#x27;And you change it before you ever found out whether the old one converted.&#x27;", "label": "So next month you change the offer.", "cell": "So next month you change the offer."}, {"act": "01 \u00b7 The pain", "note": "Advance fast, three slides, fifteen seconds.", "label": "Then the content.", "cell": "Then the content."}, {"act": "01 \u00b7 The pain", "note": "Fast.", "label": "Then the price.", "cell": "Then the price."}, {"act": "01 \u00b7 The pain", "note": "Fast. Then stop.", "label": "Then the ad.", "cell": "Then the ad."}];
+
+var N=SLIDES.length, i=0, notesOn=false;
+var stage=document.getElementById('stage'), deck=document.getElementById('deck');
+function fit(){var s=Math.min(window.innerWidth/1600, window.innerHeight/900);
+  deck.style.transform='scale('+s+')';}
+window.addEventListener('resize',fit); fit();
+function show(n){
+  if(n<0)n=0; if(n>N-1)n=N-1; i=n;
+  for(var k=0;k<N;k++){document.getElementById('s'+k).classList.toggle('on',k===i);}
+  document.getElementById('hud-n').textContent=(i+1)+' / '+N;
+  document.getElementById('hud-a').textContent=SLIDES[i].act||'';
+  document.getElementById('nbody').innerHTML=SLIDES[i].note||'<i style="color:#555">no note</i>';
+  var nx=SLIDES[i+1];
+  document.getElementById('nnext').textContent= nx ? ('NEXT  ·  '+(nx.label||'')) : 'END';
+  var cur=document.querySelector('.gcell.cur'); if(cur)cur.classList.remove('cur');
+  var gc=document.getElementById('g'+i); if(gc)gc.classList.add('cur');
+  try{location.hash=i+1;}catch(e){}
+}
+function next(){show(i+1)} function prev(){show(i-1)}
+document.addEventListener('keydown',function(e){
+  var g=document.getElementById('grid');
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next()}
+  else if(e.key==='ArrowLeft'||e.key==='Backspace'||e.key==='PageUp'){e.preventDefault();prev()}
+  else if(e.key==='Home'){show(0)} else if(e.key==='End'){show(N-1)}
+  else if(e.key==='s'||e.key==='S'){notesOn=!notesOn;document.getElementById('notes').classList.toggle('on',notesOn)}
+  else if(e.key==='g'||e.key==='G'){g.classList.toggle('on')}
+  else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}
+  else if(e.key==='p'||e.key==='P'){window.print()}
+  else if(e.key==='Escape'){g.classList.remove('on')}
+});
+stage.addEventListener('click',function(e){ if(e.clientX < window.innerWidth*0.22) prev(); else next(); });
+document.getElementById('grid').addEventListener('click',function(e){
+  var c=e.target.closest('.gcell'); if(!c)return;
+  show(parseInt(c.dataset.i,10)); document.getElementById('grid').classList.remove('on');
+});
+var h=parseInt((location.hash||'').replace('#',''),10);
+show(isNaN(h)?0:h-1);
+
+</script></body></html>

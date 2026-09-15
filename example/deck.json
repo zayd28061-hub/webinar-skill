@@ -1,0 +1,209 @@
+{
+ "meta": {
+  "title": "Example deck — The Rate Read",
+  "subtitle": "How to find the leak in ten minutes",
+  "presenter": "Zayd Operates",
+  "theme": {
+   "bg": "#0E2A2E",
+   "surface": "#133337",
+   "text": "#F4F1ED",
+   "muted": "#7E9A9B",
+   "accent": "#DBC9B8",
+   "line": "#1C4449",
+   "display": "'Inter', system-ui, sans-serif",
+   "body": "'Inter', system-ui, sans-serif",
+   "mono": "'DM Mono', ui-monospace, monospace"
+  }
+ },
+ "slides": [
+  {
+   "title": "The [[Rate]] Read",
+   "subtitle": "Find the leak in ten minutes. Stop guessing which of sixteen.",
+   "presenter": "Zayd Operates",
+   "kicker": "Live · 60 minutes",
+   "act": "00 · The frame",
+   "type": "cover",
+   "note": "Hold ten seconds while people land. Do not say welcome. Do not do housekeeping. First words out of your mouth are the promise on the next slide."
+  },
+  {
+   "text": "By the end you will know where your money [[leaks]].",
+   "sub": "Not a theory. Your own numbers, read in an afternoon.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Say it plainly and immediately. 'I am not going to teach you marketing. By the end of this hour you will know which single part of your business is losing you the most money, and you will know it from your own numbers, not from my opinion.'"
+  },
+  {
+   "text": "Three things, then I let you go.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Frame the hour so they can feel its shape. Short."
+  },
+  {
+   "title": "What you leave with",
+   "items": [
+    "The eight numbers that actually run your business.",
+    "Which one of sixteen leaks yours has.",
+    "What to change on Monday, and what to leave alone."
+   ],
+   "upto": 1,
+   "act": "00 · The frame",
+   "type": "build",
+   "note": "Read all three out. Do not elaborate yet."
+  },
+  {
+   "title": "What you leave with",
+   "items": [
+    "The eight numbers that actually run your business.",
+    "Which one of sixteen leaks yours has.",
+    "What to change on Monday, and what to leave alone."
+   ],
+   "upto": 2,
+   "act": "00 · The frame",
+   "type": "build",
+   "note": "Second."
+  },
+  {
+   "title": "What you leave with",
+   "items": [
+    "The eight numbers that actually run your business.",
+    "Which one of sixteen leaks yours has.",
+    "What to change on Monday, and what to leave alone."
+   ],
+   "upto": 3,
+   "act": "00 · The frame",
+   "type": "build",
+   "note": "Third. Then: 'That last one is the one nobody tells you.'"
+  },
+  {
+   "text": "Open a doc. Write one number down.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Value before credentials. Make them DO something in the first three minutes. This is why they stay past minute two."
+  },
+  {
+   "text": "How many people booked with you last month?",
+   "sub": "Not leads. Booked.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Ask it, then wait. 'Not leads. Not calls you wanted. Booked. Write the number down.' Check the chat, read two out loud."
+  },
+  {
+   "text": "Now: how many [[showed up]]?",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Hold. 'Most of you just found a gap you have never measured. Keep both numbers. We come back to them at minute forty.' This is the loop opener."
+  },
+  {
+   "text": "At the end I will show you the sixteen.",
+   "sub": "The whole list. You get it either way.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Name the loop, do not describe it. 'I have never put this list on the internet. It is the whole audit. You get it at the end whether you buy anything or not.'"
+  },
+  {
+   "text": "This is for coaches already past [[twenty]] thousand a month.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "Minute five. The self-selection slide. Say the exclusion out loud and mean it."
+  },
+  {
+   "text": "If you are under, this will not help you yet.",
+   "sub": "I would rather you left now.",
+   "align": "left",
+   "act": "00 · The frame",
+   "type": "statement",
+   "note": "'Genuinely. Leave. You do not have a leak, you have a volume problem, and that is a different hour. I would rather you left now than sat through fifty minutes that were not built for you.' Then pause. Nobody leaves. Everybody stays harder."
+  },
+  {
+   "kicker": "Act one",
+   "title": "Let me describe your month.",
+   "act": "01 · The pain",
+   "type": "section",
+   "note": "Hard reset. Say the title, pause two seconds, move on. Do not elaborate on a section slide."
+  },
+  {
+   "text": "It is the twenty-eighth.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "Drop the pace. Quiet voice. You are describing their life in the third person and they are going to feel watched."
+  },
+  {
+   "text": "You open the dashboard at eleven at night.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "Concrete. Specific time. No adjectives."
+  },
+  {
+   "value": "240",
+   "label": "leads that month",
+   "act": "01 · The pain",
+   "type": "number",
+   "note": "Say the number, not the feeling."
+  },
+  {
+   "value": "11",
+   "label": "calls booked",
+   "act": "01 · The pain",
+   "type": "number",
+   "note": "Advance fast. The two numbers do the arguing."
+  },
+  {
+   "value": "2",
+   "label": "closed",
+   "act": "01 · The pain",
+   "type": "number",
+   "note": "Hold. Say nothing."
+  },
+  {
+   "text": "You close the tab.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "Beat. Let it sit."
+  },
+  {
+   "text": "It must be the offer.",
+   "attrib": "you, on the twenty-eighth",
+   "act": "01 · The pain",
+   "type": "quote",
+   "note": "This is the moment of recognition. Slow down."
+  },
+  {
+   "text": "So next month you change the offer.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "'And you change it before you ever found out whether the old one converted.'"
+  },
+  {
+   "text": "Then the content.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "Advance fast, three slides, fifteen seconds."
+  },
+  {
+   "text": "Then the price.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "Fast."
+  },
+  {
+   "text": "Then the ad.",
+   "align": "left",
+   "act": "01 · The pain",
+   "type": "statement",
+   "note": "Fast. Then stop."
+  }
+ ]
+}
