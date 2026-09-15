@@ -9,13 +9,13 @@ It is not a slide generator. It is the webinar structure, the psychology behind 
 ## Install
 
 ```bash
-git clone https://github.com/USER/webinar-skill.git ~/.claude/skills/webinar
+git clone https://github.com/zayd28061-hub/webinar-skill.git ~/.claude/skills/webinar
 ```
 
 Or drop it into a single project instead of globally:
 
 ```bash
-git clone https://github.com/USER/webinar-skill.git .claude/skills/webinar
+git clone https://github.com/zayd28061-hub/webinar-skill.git .claude/skills/webinar
 ```
 
 Restart Claude Code. Type `/webinar`.
